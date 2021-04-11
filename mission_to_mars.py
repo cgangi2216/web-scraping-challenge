@@ -13,15 +13,14 @@ def scrap_data():
     # Create empty dictionary for output data
     output_data = {}
 
-
     # ======================== NASA Mars News ========================
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     element = soup.select_one('div.list_text')
-    output_data['Article Title'] = element.find('div',class_='content_title').get_text()
-    output_data['Article Summary'] = element.find('div',class_='article_teaser_body').get_text()
+    output_data['article_title'] = element.find('div',class_='content_title').get_text()
+    output_data['article_summary'] = element.find('div',class_='article_teaser_body').get_text()
 
 
     # ======================== JPL Mars Space Images - Featured Image ========================
@@ -32,7 +31,7 @@ def scrap_data():
     html = browser.html
     img_soup = BeautifulSoup(html, 'html.parser')
     full_img_url = img_soup.find('img', class_='fancybox-image').get('src')
-    output_data['Featured Image URL'] = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{full_img_url}'
+    output_data['featured_image_url'] = f'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/{full_img_url}'
 
 
     # ======================== Mars Facts ========================
@@ -42,7 +41,7 @@ def scrap_data():
     mars_facts = mars_facts.rename(columns={0:'Measure',1:'Value'})
     mars_facts.set_index('Measure')
     mars_facts = mars_facts.to_html()
-    output_data['Mars Facts'] = mars_facts
+    output_data['mars_facts'] = mars_facts
 
 
     # ======================== Mars Hemispheres ========================
@@ -81,14 +80,14 @@ def scrap_data():
                     full_img_url = x.ul.li.a.get('href')
         
         # Apend to list
-        hemisphere_image_urls.append({'Title':title, 'Image_URL':full_img_url})
+        hemisphere_image_urls.append({'hemisphere_name':title, 'hemisphere_image_url':full_img_url})
 
         # Reset variables
         itemLink_url = ''
         title = ''
         full_img_url = ''   
     
-    output_data['Hemispheres'] = hemisphere_image_urls
+    output_data['hemispheres'] = hemisphere_image_urls
 
     # ======================== Close browser & return scrapped data ========================
     browser.quit()

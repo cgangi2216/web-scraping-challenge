@@ -2,26 +2,50 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="Mission to Mars" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mission to Mars</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="Mission to Mars" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mission to Mars</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="jumbotron text-center">
-        <h1>Mission to Mars</h1>
-        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape Data</a></p>
+    <div class="container-fluid">
+        <div class="jumbotron text-center">
+            <h1>Mission to Mars</h1>
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape Data</a></p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Latest Mars News Article</h3>
+                <h4>{{ mars_data.article_title }}</h3>
+                <p>{{ mars_data.article_summary }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Featured Image</h3>
+                <img src= '{{ mars_data.featured_image_url }}' alt="Mars">
+            </div>
+            <div class="col-md-6">
+                <h3>Mars Facts</h3>
+                {{ mars_data.mars_facts }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Mars Hemispheres</h3>
+                <div class="row">
+                    {% for row in mars_data.hemispheres %}
+                        <div class="col-md-6">
+                            <h4>{{ row.hemisphere_name }}</h4>
+                            <img src= '{{ row.hemisphere_image_url }}' alt={{ row.hemisphere_name }}>
+                        </div>
+                    {% endfor }
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <!-- <img src="{{ mars_data.featured_image_url }}" alt="Mars">
-    <h2>The typical weather in Costa Rica is:</h2>
-    <h3>{{ mars_data.article_title }}</h3>
-    <p>Min Temp: {{ mars_data.article_summary }}</p> -->
-  </div>
-  </div>
 </body>
 
 </html>

@@ -95,3 +95,4 @@ def scrap_data():
     return output_data
 
 
+scrap_data()

@@ -5,7 +5,7 @@ from splinter import Browser
 from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
 
-def scrap_data():
+def scrape_data():
     # Set up Splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
@@ -95,4 +95,4 @@ def scrap_data():
     return output_data
 
 
-scrap_data()
+scrape_data()
